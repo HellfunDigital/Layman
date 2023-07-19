@@ -1,31 +1,25 @@
 Shared Dependencies:
 
-1. **Token Types**: Shared between lexer.py, parser.py, and compiler.py. These are the types of tokens that the lexer can generate and the parser can understand.
+1. **Laymen Language Core**: This is the core language module that is shared across all files. It includes the basic syntax, constructs, and rules of the Laymen language.
 
-2. **AST Node Types**: Shared between parser.py, syntax_tree.py, and compiler.py. These are the types of nodes that can exist in the abstract syntax tree.
+2. **Laymen Compiler**: This module is used by the compiler, transpiler, and interpreter files. It contains the logic for converting Laymen code into executable code.
 
-3. **Variable Types**: Shared between variable.py, parser.py, and compiler.py. These are the types of variables that can be declared and used in the language.
+3. **Laymen Lexer and Parser**: These modules are used by the compiler, transpiler, interpreter, and debugger files. They are responsible for breaking down Laymen code into tokens and constructing a parse tree.
 
-4. **Loop Types**: Shared between loop.py, parser.py, and compiler.py. These are the types of loops that can be used in the language.
+4. **Laymen Error Handler**: This module is used by all files that execute or analyze Laymen code. It provides functions for handling and reporting errors.
 
-5. **Conditional Types**: Shared between conditional.py, parser.py, and compiler.py. These are the types of conditionals that can be used in the language.
+5. **Laymen Debugger**: This module is used by the compiler, interpreter, and error handler files. It provides debugging tools and functions.
 
-6. **Function Types**: Shared between function.py, parser.py, and compiler.py. These are the types of functions that can be declared and used in the language.
+6. **Laymen API Integration**: This module is used by the compiler, interpreter, and visual programming support files. It provides functions for integrating with external libraries and APIs.
 
-7. **Error Types**: Shared between error_handling.py, lexer.py, parser.py, and compiler.py. These are the types of errors that can be thrown and caught in the language.
+7. **Laymen Visual Programming Support**: This module is used by the compiler and interpreter files. It provides functions for visual programming features.
 
-8. **Debugging Tools**: Shared between debugger.py, lexer.py, parser.py, and compiler.py. These are the tools available for debugging code in the language.
+8. **Laymen Documentation and Tutorials**: These modules are used by the README and community support files. They provide the content for the language's documentation and tutorials.
 
-9. **Library and API Names**: Shared between library_integration.py, api_integration.py, and compiler.py. These are the names of libraries and APIs that can be used in the language.
+9. **Laymen Community Support**: This module is used by the README and iterative development files. It provides functions for community interaction and feedback collection.
 
-10. **Documentation and Tutorial Names**: Shared between documentation.py, tutorial.py, and main.py. These are the names of documentation and tutorials available for learning the language.
+10. **Laymen Performance and Compatibility**: These modules are used by the compiler, interpreter, and optimizer files. They provide functions for performance optimization and compatibility checks.
 
-11. **Community Features**: Shared between community.py and main.py. These are the features available for community interaction and collaboration.
+11. **Laymen Iterative Development**: This module is used by all files as it provides functions for gathering user feedback and iterating on the language design.
 
-12. **Performance Optimization Techniques**: Shared between performance_optimization.py and compiler.py. These are the techniques used to optimize the performance of the language.
-
-13. **Feedback Types**: Shared between feedback.py and main.py. These are the types of feedback that can be given by users.
-
-14. **DOM Element IDs**: Shared between visual_interface.py and main.py. These are the IDs of DOM elements that can be manipulated in the visual interface.
-
-15. **Message Names**: Shared across all files. These are the names of messages that can be logged or displayed to the user.
+12. **Test Modules**: These modules are used by all test files. They provide functions for testing the functionality and performance of the Laymen language and its components.
