@@ -1,39 +1,46 @@
 ```python
-import tkinter as tk
-from laymen_compiler.laymen_lexer import LaymenLexer
-from laymen_compiler.laymen_parser import LaymenParser
-from laymen_compiler.laymen_interpreter import LaymenInterpreter
-from laymen_compiler.laymen_error_handler import LaymenErrorHandler
+import json
+from laymen_compiler.laymen_parser import parseLaymenCode
 
-class LaymenVisualProgrammingSupport:
+class VisualProgrammingSupport:
     def __init__(self):
-        self.root = tk.Tk()
-        self.root.title("Laymen Visual Programming")
-        self.lexer = LaymenLexer()
-        self.parser = LaymenParser()
-        self.interpreter = LaymenInterpreter()
-        self.error_handler = LaymenErrorHandler()
+        self.block_definitions = self.load_block_definitions()
 
-    def create_visual_block(self, block_type, block_text):
-        block = tk.Button(self.root, text=block_text)
-        block.pack()
-        block.bind("<Button-1>", self.execute_block(block_type, block_text))
+    def load_block_definitions(self):
+        with open('block_definitions.json', 'r') as f:
+            return json.load(f)
 
-    def execute_block(self, block_type, block_text):
-        def _execute(event):
-            try:
-                tokens = self.lexer.tokenize(block_text)
-                tree = self.parser.parse(tokens)
-                self.interpreter.interpret(tree)
-            except Exception as e:
-                self.error_handler.handle(e)
-        return _execute
+    def generate_visual_blocks(self, laymenCode):
+        parsedCode = parseLaymenCode(laymenCode)
+        visualBlocks = []
+        for statement in parsedCode:
+            block = self.generate_block(statement)
+            if block:
+                visualBlocks.append(block)
+        return visualBlocks
 
-    def run(self):
-        self.root.mainloop()
+    def generate_block(self, statement):
+        blockType = statement['type']
+        if blockType in self.block_definitions:
+            block = self.block_definitions[blockType].copy()
+            for field in block['fields']:
+                if field in statement:
+                    block['fields'][field] = statement[field]
+            return block
+        return None
 
-if __name__ == "__main__":
-    visual_programming_support = LaymenVisualProgrammingSupport()
-    visual_programming_support.create_visual_block("print", "Print Hello World")
-    visual_programming_support.run()
+    def generate_laymen_code(self, visualBlocks):
+        laymenCode = ""
+        for block in visualBlocks:
+            laymenCode += self.generate_statement(block)
+        return laymenCode
+
+    def generate_statement(self, block):
+        blockType = block['type']
+        if blockType in self.block_definitions:
+            statement = self.block_definitions[blockType]['template']
+            for field, value in block['fields'].items():
+                statement = statement.replace('{' + field + '}', str(value))
+            return statement + "\n"
+        return ""
 ```

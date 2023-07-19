@@ -1,39 +1,45 @@
 ```python
-import requests
-from laymen_language_core import LaymenUser
+import json
+from typing import Dict
 
 class CommunitySupport:
     def __init__(self):
-        self.community_url = "https://community.laymenlang.org"
+        self.communityData = []
 
-    def post_question(self, user: LaymenUser, question: str):
-        payload = {
-            'user_id': user.id,
-            'question': question
-        }
-        response = requests.post(f"{self.community_url}/questions", data=payload)
-        return response.status_code == 200
+    def load_community_data(self, filename: str):
+        with open(filename, 'r') as file:
+            self.communityData = json.load(file)
 
-    def share_project(self, user: LaymenUser, project_url: str):
-        payload = {
-            'user_id': user.id,
-            'project_url': project_url
-        }
-        response = requests.post(f"{self.community_url}/projects", data=payload)
-        return response.status_code == 200
+    def save_community_data(self, filename: str):
+        with open(filename, 'w') as file:
+            json.dump(self.communityData, file)
 
-    def get_help(self, user: LaymenUser):
-        response = requests.get(f"{self.community_url}/help/{user.id}")
-        if response.status_code == 200:
-            return response.json()
-        else:
-            return None
+    def add_project(self, project: Dict):
+        self.communityData.append(project)
+        self.save_community_data('community_data.json')
 
-    def collaborate(self, user: LaymenUser, collaborator_id: str):
-        payload = {
-            'user_id': user.id,
-            'collaborator_id': collaborator_id
-        }
-        response = requests.post(f"{self.community_url}/collaborate", data=payload)
-        return response.status_code == 200
+    def get_projects(self):
+        return self.communityData
+
+    def get_project(self, project_id: int):
+        for project in self.communityData:
+            if project['id'] == project_id:
+                return project
+        return None
+
+    def update_project(self, project_id: int, updated_project: Dict):
+        for i, project in enumerate(self.communityData):
+            if project['id'] == project_id:
+                self.communityData[i] = updated_project
+                self.save_community_data('community_data.json')
+                return True
+        return False
+
+    def delete_project(self, project_id: int):
+        for i, project in enumerate(self.communityData):
+            if project['id'] == project_id:
+                del self.communityData[i]
+                self.save_community_data('community_data.json')
+                return True
+        return False
 ```

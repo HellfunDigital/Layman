@@ -1,30 +1,43 @@
 ```python
-import laymen_compiler.laymen_language_core as core
-import laymen_compiler.laymen_error_handler as error_handler
-
 class LaymenOptimizer:
-    def __init__(self):
-        self.core = core.LaymenLanguageCore()
-        self.error_handler = error_handler.LaymenErrorHandler()
+    def __init__(self, parsed_code):
+        self.parsed_code = parsed_code
 
-    def optimize(self, code):
-        try:
-            # Parse the code into an AST
-            ast = self.core.parse(code)
+    def optimize(self):
+        optimized_code = self.remove_unreachable_code(self.parsed_code)
+        optimized_code = self.remove_unused_variables(optimized_code)
+        return optimized_code
 
-            # Perform optimization on the AST
-            optimized_ast = self._optimize_ast(ast)
+    def remove_unreachable_code(self, code):
+        # This is a placeholder for the actual implementation
+        # The actual implementation would involve a control flow analysis
+        # to detect and remove code that can never be reached
+        return code
 
-            # Generate optimized code from the optimized AST
-            optimized_code = self.core.generate_code(optimized_ast)
+    def remove_unused_variables(self, code):
+        # This is a placeholder for the actual implementation
+        # The actual implementation would involve a data flow analysis
+        # to detect and remove variables that are never used
+        return code
 
-            return optimized_code
-        except Exception as e:
-            self.error_handler.handle_error(e)
+if __name__ == "__main__":
+    from laymen_parser import LaymenParser
 
-    def _optimize_ast(self, ast):
-        # This is a placeholder for the actual optimization logic
-        # In a real implementation, this function would traverse the AST and perform various optimizations
-        # such as constant folding, dead code elimination, loop unrolling, etc.
-        return ast
+    laymen_code = """
+    let x = 10
+    let y = 20
+    if x > y then
+        print x
+    else
+        print y
+    end
+    """
+
+    parser = LaymenParser()
+    parsed_code = parser.parse(laymen_code)
+
+    optimizer = LaymenOptimizer(parsed_code)
+    optimized_code = optimizer.optimize()
+
+    print(optimized_code)
 ```
