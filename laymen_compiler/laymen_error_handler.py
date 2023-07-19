@@ -1,30 +1,25 @@
 ```python
-class LaymenError(Exception):
-    """Base class for exceptions in Laymen language."""
-    pass
-
-class SyntaxError(LaymenError):
-    def __init__(self, message, line):
-        self.message = message
-        self.line = line
-
-class RuntimeError(LaymenError):
-    def __init__(self, message, line):
-        self.message = message
-        self.line = line
-
-class ErrorHandler:
+class LaymenErrorHandler:
     def __init__(self):
-        self.had_error = False
+        self.debugInfo = []
 
-    def report(self, line, where, message):
-        print(f"[line {line}] Error {where}: {message}")
-        self.had_error = True
+    def add_error(self, error):
+        self.debugInfo.append(error)
 
-    def error(self, line, message):
-        self.report(line, "", message)
+    def clear_errors(self):
+        self.debugInfo = []
 
-    def runtime_error(self, error):
-        print(f"{error.message}\n[line {error.line}]")
-        self.had_error = True
+    def get_errors(self):
+        return self.debugInfo
+
+    def has_errors(self):
+        return len(self.debugInfo) > 0
+
+    def print_errors(self):
+        for error in self.debugInfo:
+            print(f"Error: {error}")
+
+    def handle_error(self, error):
+        self.add_error(error)
+        self.print_errors()
 ```

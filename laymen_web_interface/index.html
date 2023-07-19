@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laymen Code Editor</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/laymen_compiler_interface.js"></script>
+    <script src="js/laymen_debugger_interface.js"></script>
+    <script src="js/laymen_documentation_interface.js"></script>
+    <script src="js/laymen_tutorial_interface.js"></script>
+    <script src="js/laymen_community_interface.js"></script>
+    <script src="js/laymen_feedback_interface.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Laymen Code Editor</h1>
+    </header>
+    <main>
+        <section id="codeEditor">
+            <textarea id="laymenCodeInput" placeholder="Write your Laymen code here..."></textarea>
+            <button id="compileButton" onclick="compileLaymenCode()">Compile</button>
+            <button id="debugButton" onclick="debugLaymenCode()">Debug</button>
+        </section>
+        <section id="documentation">
+            <h2>Documentation</h2>
+            <div id="docContentDisplay"></div>
+        </section>
+        <section id="tutorials">
+            <h2>Tutorials</h2>
+            <div id="tutorialContentDisplay"></div>
+        </section>
+        <section id="community">
+            <h2>Community</h2>
+            <div id="communityDataDisplay"></div>
+        </section>
+        <section id="feedback">
+            <h2>Feedback</h2>
+            <form id="feedbackForm" onsubmit="submitFeedback()">
+                <textarea placeholder="Your feedback..."></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>© 2022 Laymen Code Editor</p>
+    </footer>
+</body>
+</html>
